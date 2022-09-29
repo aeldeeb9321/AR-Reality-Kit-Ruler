@@ -14,7 +14,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var arView: ARView!
     var startAnchor: AnchorEntity?
     var endAnchor: AnchorEntity?
+    var object: ModelEntity = ModelEntity()
     var entityList = [ModelEntity]()
+    var distanceString: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -44,17 +46,19 @@ class ViewController: UIViewController {
                 arView.scene.addAnchor(startAnchor)
             }else if endAnchor == nil {
                 endAnchor = AnchorEntity(raycastResult: result)
-                let object = createEntity()
+                object = createEntity()
                 endAnchor?.addChild(object)
                 entityList.append(object)
                 guard let endAnchor = endAnchor else{return}
                 arView.scene.addAnchor(endAnchor)
             }
-            
+            //we have added two anchors and each can have one entity, this makes it so the user can only measure two distances at a time
             if entityList.count >= 2{
                 calculate()
-                //entityList = [ModelEntity]
+                addDistanceText(distanceString, object)
             }
+            
+
         }
     }
     
@@ -68,15 +72,21 @@ class ViewController: UIViewController {
     func calculate(){
         let start = startAnchor!
         let end = endAnchor!
-        let a = (end.position.x) - (start.position.x)
-        let b = (end.position.y) - (start.position.y)
-        let c = (end.position.z) - (start.position.z)
+        let distance = (simd_distance(start.position, end.position)) * 100
         
-        let distance = abs(sqrt(pow(a, 2) + pow(b, 2) + pow(c, 2))) * 100
-        let distanceString = String(format: "%.2f", distance) + "CM"
-        print(distanceString)
+        distanceString = String(format: "%.1f CM", distance) 
+        
     }
     
+    func addDistanceText(_ distanceString: String,_ entity: ModelEntity){
+        let mesh = MeshResource.generateText(distanceString, extrusionDepth: 0.1, font: .systemFont(ofSize: 2), containerFrame: .zero, alignment: .left, lineBreakMode: .byTruncatingTail)
+        let material = SimpleMaterial(color: .orange, isMetallic: true)
+        let text = ModelEntity(mesh: mesh,materials: [material])
+        text.scale = SIMD3<Float>(x: 0.015, y: 0.015, z: 0.045)
+        entity.addChild(text)
+        text.setPosition(simd_float3(-0.07,0.06,0), relativeTo: entity)
+    }
+
 }
 
 
