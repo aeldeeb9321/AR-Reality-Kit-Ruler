@@ -19,14 +19,30 @@
                             <arView multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="42O-Uf-XjU">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                             </arView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OhJ-E4-Upw">
+                                <rect key="frame" x="160" y="775" width="70" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="ICd-Nk-PX2"/>
+                                    <constraint firstAttribute="height" constant="35" id="bzW-sD-fJ1"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Reset">
+                                    <color key="baseBackgroundColor" red="0.85387073859999996" green="0.47500383229999998" blue="0.045489213709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="resetMeasurement:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vxk-LW-MCv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="OhJ-E4-Upw" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="6If-jy-B63"/>
                             <constraint firstItem="42O-Uf-XjU" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="AiG-ib-eD5"/>
                             <constraint firstItem="42O-Uf-XjU" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Lj9-0s-M5n"/>
                             <constraint firstAttribute="bottom" secondItem="42O-Uf-XjU" secondAttribute="bottom" id="Rm2-t6-vb3"/>
                             <constraint firstItem="42O-Uf-XjU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="SXy-ni-Ocr"/>
+                            <constraint firstItem="OhJ-E4-Upw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sOm-x4-C2E"/>
                         </constraints>
                     </view>
                     <connections>
